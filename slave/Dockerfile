@@ -1,4 +1,4 @@
-FROM oberthur/docker-ubuntu-java:jdk8_8.51.16
+FROM oberthur/docker-ubuntu-java:jdk8_8.60.27
 
 MAINTAINER Dawid Malinowski <d.malinowski@oberthur.com>
 
@@ -10,7 +10,7 @@ WORKDIR /opt/jenkins-slave
 
 RUN mkdir -p /opt/jenkins-slave \
     && curl -o /opt/jenkins-slave/swarm-client-$SWARM_VERSION-jar-with-dependencies.jar http://maven.jenkins-ci.org/content/repositories/releases/org/jenkins-ci/plugins/swarm-client/$SWARM_VERSION/swarm-client-$SWARM_VERSION-jar-with-dependencies.jar \
-    && echo '#!/bin/bash -x\n\njava -jar /opt/jenkins-slave/swarm-client-$SWARM_VERSION-jar-with-dependencies.jar -disableClientsUniqueId -username $JENKINS_USERNAME -password $JENKINS_PASSWORD -mode ${JENKINS_MODE:-exclusive} -name $JENKINS_SLAVE_NAME -executors ${JENKINS_EXEC_NR:-1} -master ${JENKINS_URL:-127.0.0.1} -fsroot $JENKINS_FS_ROOT -labels "${JENKINS_LABELS:-swarm}"' > /usr/bin/swarm_slave.sh \
+    && echo '#!/bin/bash -x \n\njava -jar /opt/jenkins-slave/swarm-client-$SWARM_VERSION-jar-with-dependencies.jar -disableClientsUniqueId -username $JENKINS_USERNAME -password $JENKINS_PASSWORD -mode ${JENKINS_MODE:-exclusive} -name $JENKINS_SLAVE_NAME -executors ${JENKINS_EXEC_NR:-1} -master ${JENKINS_URL:-127.0.0.1} -fsroot $JENKINS_FS_ROOT -labels "${JENKINS_LABELS:-swarm}"' > /usr/bin/swarm_slave.sh \
     && chmod +x /usr/bin/swarm_slave.sh \
     && mkdir -p /etc/supervisor/conf.d \
     && echo "[program:swarm-slave]\ncommand=/usr/bin/swarm_slave.sh\nuser=jenkins-slave" > /etc/supervisor/conf.d/supervisor.conf \
