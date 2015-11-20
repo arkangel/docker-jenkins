@@ -18,6 +18,9 @@ RUN mkdir -p /opt/jenkins-slave \
     # Make sure the package repository is up to date.
     && apt-get update \
     && apt-get install -y git supervisor \
+    
+    # Install ssh
+    && apt-get install -y openssh-client \
 
     # clean all cache to clean space
     && rm -rf /var/lib/apt/lists/* \
