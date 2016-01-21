@@ -17,8 +17,10 @@ RUN mkdir -p /opt/jenkins-slave \
 
     # Make sure the package repository is up to date.
     && apt-get update \
-    && apt-get install -y git supervisor openssh-client unzip wget bzip2 \
-
+    && apt-get install -y git supervisor openssh-client unzip wget bzip2 nodejs npm \
+    && npm install npm -g \
+    && npm install -g bower \
+    && ln -s /usr/bin/nodejs /usr/bin/node \
     # clean all cache to clean space
     && rm -rf /var/lib/apt/lists/* \
     && apt-get clean \
