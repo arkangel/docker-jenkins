@@ -9,5 +9,6 @@ RUN curl -fsSL http://archive.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binar
   && mv /usr/share/apache-maven-$MAVEN_VERSION /usr/share/maven \
   && ln -s /usr/share/maven/bin/mvn /usr/bin/mvn \
   && apt-get update && apt-get install -y nodejs npm bzip2 \
+  && npm update -g \
   && npm install -g grunt-cli  \
   && ln -s /usr/bin/nodejs /usr/bin/node
